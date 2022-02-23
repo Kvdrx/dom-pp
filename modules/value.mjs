@@ -25,6 +25,7 @@
 */
 
 // Local imports
+import { getVerdict } from "../index.mjs";
 import { CompoundDesignator, Designator } from "./designator.mjs";
 
 /**
@@ -124,15 +125,15 @@ class Value {
         }
         return new ConstantValue(o);
     }
+    
+    getStaticExplanation() {
 
-     getStaticExplanation() {
+        const tree = explainer.explain(this);
+        const witness = verdict.getWitness(tree);
+        const list = getTreeFromWitness(witness);
 
-        var tree = Explainer.explain(this);
-        var list = Verdict.getWitness(tree);
-        var T = getTreeFromWitness(list);
-        
-        return T.toString();
-}
+            return list;
+    }
 }
 
 /**
